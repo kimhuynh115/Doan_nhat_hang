@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+VJ Round Trip Fare Average OCR
+</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+</head>
+
+<body>
+
+<h2>
+VJ Round Trip Fare Average OCR
+</h2>
+
+<div class="toolbar">
+
+    Pax:
+
+    <input
+        type="number"
+        id="paxInput"
+        value="66"
+        min="1"
+    >
+
+    <button onclick="processBoth()">
+        OCR + Calculate
+    </button>
+
+    <button onclick="copyFinalResult()">
+        Copy Result
+    </button>
+
+</div>
+
+<div class="grid">
+
+    <div class="panel">
+
+        <h3>
+            OW / Chặng 1
+        </h3>
+
+        <div class="route">
+            Route:
+            <span id="route1">
+                Waiting OCR...
+            </span>
+        </div>
+
+        <input
+            type="file"
+            id="imageInput1"
+            accept="image/*"
+        >
+
+        <div
+            id="status1"
+            class="status"
+        ></div>
+
+        <h4>
+            OCR Preview
+        </h4>
+
+        <div
+            id="ocrPreview1"
+            class="ocr"
+        ></div>
+
+        <h4>
+            Parsed Fare Table
+        </h4>
+
+        <table id="parsedTable1"></table>
+
+        <h4>
+            Calculation Result
+        </h4>
+
+        <div id="summary1"></div>
+
+        <table id="resultTable1"></table>
+
+    </div>
+
+    <div class="panel">
+
+        <h3>
+            RT / Chặng 2
+        </h3>
+
+        <div class="route">
+            Route:
+            <span id="route2">
+                Waiting OCR...
+            </span>
+        </div>
+
+        <input
+            type="file"
+            id="imageInput2"
+            accept="image/*"
+        >
+
+        <div
+            id="status2"
+            class="status"
+        ></div>
+
+        <h4>
+            OCR Preview
+        </h4>
+
+        <div
+            id="ocrPreview2"
+            class="ocr"
+        ></div>
+
+        <h4>
+            Parsed Fare Table
+        </h4>
+
+        <table id="parsedTable2"></table>
+
+        <h4>
+            Calculation Result
+        </h4>
+
+        <div id="summary2"></div>
+
+        <table id="resultTable2"></table>
+
+    </div>
+
+</div>
+
+<div class="finalBox">
+
+    <h3>
+        Round Trip Result
+    </h3>
+
+    <pre id="roundTripSummary">
+Waiting calculation...
+    </pre>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
