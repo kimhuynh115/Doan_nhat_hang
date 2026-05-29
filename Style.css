@@ -1,1 +1,96 @@
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f6fa;
+    max-width:1600px;
+    margin:auto;
+    padding:20px;
+}
 
+h2{
+    color:#d71920;
+}
+
+.toolbar{
+    margin-bottom:20px;
+}
+
+.toolbar input{
+    padding:8px;
+    font-size:18px;
+    width:120px;
+}
+
+button{
+    padding:10px 16px;
+    cursor:pointer;
+    margin-left:5px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+.route{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.ocr{
+    margin-top:10px;
+    background:black;
+    color:#00ff99;
+    padding:10px;
+    height:250px;
+    overflow:auto;
+    white-space:pre-wrap;
+    font-family:Consolas,monospace;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:right;
+}
+
+th:first-child,
+td:first-child{
+    text-align:left;
+}
+
+.zero{
+    color:#999;
+}
+
+.finalBox{
+    margin-top:20px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+#roundTripSummary{
+    font-size:22px;
+    font-weight:bold;
+    color:#d71920;
+    white-space:pre-wrap;
+}
+
+.status{
+    margin-top:10px;
+    color:#666;
+}
