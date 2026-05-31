@@ -526,7 +526,7 @@ async function login(){
 
     const res =
         await fetch(
-            `${API_URL}?action=login&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}`
+            `${https://script.google.com/macros/s/AKfycbxL5pOo6nQIn_pGNU43Heb0yIZPCqGU9IAkSjR84ij3DVkUkDPax-WWtL3VJCBJKi1R/exec}?action=login&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}`
         );
 
     const txt =
