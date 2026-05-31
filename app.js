@@ -90,22 +90,30 @@ function normalizeLine(line){
 
 function extractRoute(text){
 
-    const cleaned = text
-        .replace(/\s+/g," ")
-        .toUpperCase();
+    const lines = text.split(/\n/);
 
-    const match = cleaned.match(
-        /\b([A-Z]{3})\b.*?\b([A-Z]{3})\b/
-    );
+    for(let line of lines){
 
-    if(match){
+        line = line
+            .replace(/\s+/g," ")
+            .trim();
 
-        return `${match[1]}-${match[2]}`;
+        if(
+            /\d{1,2}:\d{2}/.test(line)
+            &&
+            /[A-Z]{3}/.test(line)
+        ){
 
+            line = line.replace(
+                /\s+0\.00\s*$/,
+                ''
+            );
+
+            return line;
+        }
     }
 
-    return "Route Not Found";
-
+    return "Flight info not found";
 }
 
 function extractRows(text){
