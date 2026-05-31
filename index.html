@@ -17,6 +17,37 @@ VJ Round Trip Fare Average OCR
 
 <body>
 
+<!-- LOGIN BOX -->
+
+<div id="loginBox">
+
+    <h2>Login</h2>
+
+    <input
+        id="username"
+        placeholder="Username"
+    >
+
+    <br><br>
+
+    <input
+        id="password"
+        type="password"
+        placeholder="Password"
+    >
+
+    <br><br>
+
+    <button onclick="login()">
+        Login
+    </button>
+
+</div>
+
+<!-- APP -->
+
+<div id="appArea" style="display:none;">
+
 <h2>
 VJ Round Trip Fare Average OCR
 </h2>
@@ -24,7 +55,6 @@ VJ Round Trip Fare Average OCR
 <div class="toolbar">
 
     Pax:
-
     <input
         type="number"
         id="paxInput"
@@ -157,6 +187,8 @@ Waiting calculation...
 </div>
 
 <script src="app.js"></script>
+
+</div>
 
 </body>
 </html>
