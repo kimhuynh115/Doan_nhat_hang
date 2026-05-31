@@ -1,8 +1,7 @@
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:#f4f6fa;
-    max-width:1600px;
-    margin:auto;
+    margin:0;
     padding:20px;
 }
 
@@ -14,18 +13,6 @@ h2{
     margin-bottom:20px;
 }
 
-.toolbar input{
-    padding:8px;
-    font-size:18px;
-    width:120px;
-}
-
-button{
-    padding:10px 16px;
-    cursor:pointer;
-    margin-left:5px;
-}
-
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -33,64 +20,64 @@ button{
 }
 
 .panel{
-    background:white;
+    background:#fff;
+    border-radius:12px;
     padding:20px;
-    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 
 .route{
-    font-size:18px;
     font-weight:bold;
     margin-bottom:10px;
 }
 
 .ocr{
-    margin-top:10px;
-    background:black;
+    background:#000;
     color:#00ff99;
     padding:10px;
-    height:250px;
-    overflow:auto;
+    border-radius:8px;
+    min-height:250px;
     white-space:pre-wrap;
-    font-family:Consolas,monospace;
+    overflow:auto;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    margin-top:15px;
+    margin-top:10px;
+}
+
+th{
+    background:#f1f1f1;
 }
 
 th,td{
     border:1px solid #ddd;
     padding:8px;
-    text-align:right;
-}
-
-th:first-child,
-td:first-child{
-    text-align:left;
-}
-
-.zero{
-    color:#999;
 }
 
 .finalBox{
     margin-top:20px;
     background:white;
+    border-radius:12px;
     padding:20px;
-    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 
 #roundTripSummary{
-    font-size:22px;
-    font-weight:bold;
-    color:#d71920;
+    font-size:20px;
     white-space:pre-wrap;
 }
 
-.status{
-    margin-top:10px;
-    color:#666;
+button{
+    background:#d71920;
+    color:white;
+    border:none;
+    border-radius:6px;
+    padding:10px 15px;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.9;
 }
