@@ -475,67 +475,7 @@ async function processBoth(){
 
 }
 
-function updateRoundTrip(){
-
-    if(
-        legAverage[1] === 0 ||
-        legAverage[2] === 0
-    ){
-        return;
-    }
-
-    const pax =
-        document
-        .getElementById(
-            "paxInput"
-        ).value;
-
-    const ow =
-        money(
-            legAverage[1]
-        );
-
-    const rt =
-        money(
-            legAverage[2]
-        );
-
-    const roundTrip =
-        money(
-            legAverage[1]
-            +
-            legAverage[2]
-        );
-
-    let routeText =
-        "";
-
-    if(
-        legRoute[1]
-        &&
-        legRoute[2]
-    ){
-
-        const p1 =
-            legRoute[1]
-            .split("-");
-
-        const p2 =
-            legRoute[2]
-            .split("-");
-
-        if(
-            p1.length===2
-            &&
-            p2.length===2
-        ){
-
-            routeText =
-            `${p1[0]}-${p1[1]}-${p2[1]}`;
-
-        }
-    }
-
+function copyFinalResult(){
     document
         .getElementById(
             "roundTripSummary"
@@ -571,4 +511,118 @@ function copyFinalResult(){
     alert(
         "Copied"
     );
+}
+async function login(){
+
+    const user =
+        document.getElementById(
+            "username"
+        ).value;
+
+    const pass =
+        document.getElementById(
+            "password"
+        ).value;
+
+    const res =
+        await fetch(
+            `${API_URL}?action=login&user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}`
+        );
+
+    const txt =
+        await res.text();
+
+    if(txt === "OK"){
+
+        currentUser = user;
+
+        document
+            .getElementById(
+                "loginBox"
+            )
+            .style.display =
+            "none";
+
+        document
+            .getElementById(
+                "appArea"
+            )
+            .style.display =
+            "block";
+
+    }else{
+
+        alert(
+            "Sai Username hoặc Password"
+        );
+
+    }
+}
+
+async function saveLog(){
+
+    if(currentUser === "")
+        return;
+
+    try{
+
+        const pax =
+            document
+            .getElementById(
+                "paxInput"
+            ).value;
+
+        await fetch(
+            API_URL,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+
+                    user:
+                        currentUser,
+
+                    flight1:
+                        legRoute[1],
+
+                    flight2:
+                        legRoute[2],
+
+                    pax:
+                        pax,
+
+                    owAvg:
+                        money(
+                            legAverage[1]
+                        ),
+
+                    rtAvg:
+                        money(
+                            legAverage[2]
+                        ),
+
+                    roundTrip:
+                        money(
+                            legAverage[1]
+                            +
+                            legAverage[2]
+                        )
+
+                })
+            }
+        );
+
+    }catch(error){
+
+        console.log(
+            "Save Log Error",
+            error
+        );
+
+    }
 }
