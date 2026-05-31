@@ -1,3 +1,8 @@
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxL5pOo6nQIn_pGNU43Heb0yIZPCqGU9IAkSjR84ij3DVkUkDPax-WWtL3VJCBJKi1R/exec";
+
+let currentUser = "";
+
 const FARE_ORDER = [
 
 "E1_ECO",
