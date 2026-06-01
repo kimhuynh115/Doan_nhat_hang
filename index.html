@@ -1,194 +1,123 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>
-VJ Round Trip Fare Average OCR
-</title>
-
+<title>VJ Round Trip Fare Average OCR</title>
 <link rel="stylesheet" href="style.css">
-
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </head>
-
 <body>
-
-<!-- LOGIN BOX -->
-
-<div id="loginBox">
-
-    <h2>Login</h2>
-
-    <input
-        id="username"
-        placeholder="Username"
-    >
-
-    <br><br>
-
-    <input
-        id="password"
-        type="password"
-        placeholder="Password"
-    >
-
-    <br><br>
-
-    <button onclick="login()">
-        Login
-    </button>
-
+<div id="loginBox" class="login-box">
+    <h2>VJ Fare Average OCR</h2>
+    <p class="muted">Local Login - GitHub Pages / Vercel Ready</p>
+    <input id="username" placeholder="Username" autocomplete="username">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+    <button onclick="loginLocal()">Login</button>
+    <div class="hint">Default admin: <b>admin</b> / <b>123456</b><br>Change password after first login.</div>
+    <div id="loginMessage" class="error"></div>
 </div>
 
-<!-- APP -->
-
 <div id="appArea" style="display:none;">
+<header class="topbar">
+    <div>
+        <h2>VJ Round Trip Fare Average OCR</h2>
+        <div class="muted">User: <span id="currentUserLabel"></span></div>
+    </div>
+    <div class="top-actions">
+        <button onclick="showTab('ocrTab')">OCR</button>
+        <button onclick="showTab('historyTab')">History</button>
+        <button onclick="showTab('usersTab')" id="usersTabBtn">Users</button>
+        <button onclick="logoutLocal()" class="secondary">Logout</button>
+    </div>
+</header>
 
-<h2>
-VJ Round Trip Fare Average OCR
-</h2>
-
+<section id="ocrTab" class="tab active">
 <div class="toolbar">
-
     Pax:
-    <input
-        type="number"
-        id="paxInput"
-        value="66"
-        min="1"
-    >
-
-    <button onclick="processBoth()">
-        OCR + Calculate
-    </button>
-
-    <button onclick="copyFinalResult()">
-        Copy Result
-    </button>
-
+    <input type="number" id="paxInput" value="66" min="1">
+    <button onclick="processBoth()">OCR + Calculate</button>
+    <button onclick="copyFinalResult()">Copy Result</button>
+    <button onclick="saveCurrentLog()">Save Log</button>
 </div>
 
 <div class="grid">
-
     <div class="panel">
-
-        <h3>
-            OW / Chặng 1
-        </h3>
-
-        <div class="route">
-            Route:
-            <span id="route1">
-                Waiting OCR...
-            </span>
-        </div>
-
-        <input
-            type="file"
-            id="imageInput1"
-            accept="image/*"
-        >
-
-        <div
-            id="status1"
-            class="status"
-        ></div>
-
-        <h4>
-            OCR Preview
-        </h4>
-
-        <div
-            id="ocrPreview1"
-            class="ocr"
-        ></div>
-
-        <h4>
-            Parsed Fare Table
-        </h4>
-
+        <h3>OW / Chặng 1</h3>
+        <div class="route">Flight: <span id="route1">Waiting OCR...</span></div>
+        <input type="file" id="imageInput1" accept="image/*">
+        <div id="status1" class="status"></div>
+        <h4>OCR Preview</h4>
+        <div id="ocrPreview1" class="ocr"></div>
+        <h4>Parsed Fare Table</h4>
         <table id="parsedTable1"></table>
-
-        <h4>
-            Calculation Result
-        </h4>
-
-        <div id="summary1"></div>
-
+        <h4>Calculation Result</h4>
+        <div id="summary1" class="summary"></div>
         <table id="resultTable1"></table>
-
     </div>
 
     <div class="panel">
-
-        <h3>
-            RT / Chặng 2
-        </h3>
-
-        <div class="route">
-            Route:
-            <span id="route2">
-                Waiting OCR...
-            </span>
-        </div>
-
-        <input
-            type="file"
-            id="imageInput2"
-            accept="image/*"
-        >
-
-        <div
-            id="status2"
-            class="status"
-        ></div>
-
-        <h4>
-            OCR Preview
-        </h4>
-
-        <div
-            id="ocrPreview2"
-            class="ocr"
-        ></div>
-
-        <h4>
-            Parsed Fare Table
-        </h4>
-
+        <h3>RT / Chặng 2</h3>
+        <div class="route">Flight: <span id="route2">Waiting OCR...</span></div>
+        <input type="file" id="imageInput2" accept="image/*">
+        <div id="status2" class="status"></div>
+        <h4>OCR Preview</h4>
+        <div id="ocrPreview2" class="ocr"></div>
+        <h4>Parsed Fare Table</h4>
         <table id="parsedTable2"></table>
-
-        <h4>
-            Calculation Result
-        </h4>
-
-        <div id="summary2"></div>
-
+        <h4>Calculation Result</h4>
+        <div id="summary2" class="summary"></div>
         <table id="resultTable2"></table>
-
     </div>
-
 </div>
 
 <div class="finalBox">
-
-    <h3>
-        Round Trip Result
-    </h3>
-
-    <pre id="roundTripSummary">
-Waiting calculation...
-    </pre>
-
+    <h3>Round Trip Result</h3>
+    <pre id="roundTripSummary">Waiting calculation...</pre>
 </div>
+</section>
 
+<section id="historyTab" class="tab">
+    <div class="panel">
+        <h3>OCR History</h3>
+        <div class="toolbar">
+            <button onclick="renderHistory()">Refresh</button>
+            <button onclick="exportHistoryJSON()">Export JSON</button>
+            <button onclick="exportHistoryExcel()">Export Excel</button>
+            <button onclick="importHistoryJSONPrompt()">Import JSON</button>
+            <input type="file" id="historyImportFile" accept=".json" style="display:none" onchange="importHistoryJSON(event)">
+            <button onclick="clearHistory()" class="danger">Clear History</button>
+        </div>
+        <table id="historyTable"></table>
+    </div>
+</section>
+
+<section id="usersTab" class="tab">
+    <div class="panel">
+        <h3>User Management</h3>
+        <div class="form-row">
+            <input id="newUsername" placeholder="New username">
+            <input id="newPassword" placeholder="Password" type="password">
+            <select id="newRole">
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+            </select>
+            <button onclick="addUser()">Add User</button>
+        </div>
+
+        <h4>Change Password</h4>
+        <div class="form-row">
+            <input id="changeUser" placeholder="Username">
+            <input id="changePassword" placeholder="New password" type="password">
+            <button onclick="changePassword()">Change</button>
+        </div>
+
+        <table id="usersTable"></table>
+    </div>
+</section>
+</div>
 <script src="app.js"></script>
-
-</div>
-
 </body>
 </html>
